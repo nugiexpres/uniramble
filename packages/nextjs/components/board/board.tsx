@@ -130,7 +130,7 @@ export const Board = () => {
           </div>
           <div className="relative mt-3 bg-green-300" style={{ width: "530px", height: "530px" }}>
             {gridData &&
-              gridData.map((item, index) => (
+              gridData.map((item: { id: number; typeGrid: string }, index) => (
                 <div
                   key={index}
                   className={
