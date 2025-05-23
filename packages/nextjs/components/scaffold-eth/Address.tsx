@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
-import Blockies from "react-blockies";
-import { CopyToClipboard } from "react-copy-to-clipboard";
+import { notionists } from "@dicebear/collection";
+import { createAvatar } from "@dicebear/core";
+import { useCopyToClipboard } from "react-use";
 import { isAddress } from "viem";
 import { useEnsAvatar, useEnsName } from "wagmi";
 import { hardhat } from "wagmi/chains";
@@ -29,9 +30,10 @@ const blockieSizeMap = {
  * Displays an address (or ENS) with a Blockie image and option to copy address.
  */
 export const Address = ({ address, disableAddressLink, format, size = "base" }: TAddressProps) => {
-  const [ens, setEns] = useState<string | null>();
-  const [ensAvatar, setEnsAvatar] = useState<string | null>();
+  const [ens, setEns] = useState<string | null>(null);
+  const [ensAvatar, setEnsAvatar] = useState<string | null>(null);
   const [addressCopied, setAddressCopied] = useState(false);
+  const [, copyToClipboard] = useCopyToClipboard();
 
   const { data: fetchedEns } = useEnsName({ address, enabled: isAddress(address ?? ""), chainId: 1 });
   const { data: fetchedEnsAvatar } = useEnsAvatar({
@@ -41,16 +43,20 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
     cacheTime: 30_000,
   });
 
-  // We need to apply this pattern to avoid Hydration errors.
+  const avatarSvg = createAvatar(notionists, {
+    seed: (address ?? "default").toLowerCase(),
+    size: 64,
+    backgroundColor: ["transparent"],
+  }).toString();
+
   useEffect(() => {
-    setEns(fetchedEns);
+    setEns(fetchedEns ?? null);
   }, [fetchedEns]);
 
   useEffect(() => {
-    setEnsAvatar(fetchedEnsAvatar);
+    setEnsAvatar(fetchedEnsAvatar ?? null);
   }, [fetchedEnsAvatar]);
 
-  // Skeleton UI
   if (!address) {
     return (
       <div className="animate-pulse flex space-x-4">
@@ -67,7 +73,7 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
   }
 
   const blockExplorerAddressLink = getBlockExplorerAddressLink(getTargetNetwork(), address);
-  let displayAddress = address?.slice(0, 5) + "..." + address?.slice(-4);
+  let displayAddress = address.slice(0, 5) + "..." + address.slice(-4);
 
   if (ens) {
     displayAddress = ens;
@@ -75,11 +81,16 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
     displayAddress = address;
   }
 
+  const handleCopy = () => {
+    copyToClipboard(address);
+    setAddressCopied(true);
+    setTimeout(() => setAddressCopied(false), 800);
+  };
+
   return (
     <div className="flex items-center">
       <div className="flex-shrink-0">
         {ensAvatar ? (
-          // Don't want to use nextJS Image here (and adding remote patterns for the URL)
           // eslint-disable-next-line
           <img
             className="rounded-full"
@@ -89,14 +100,18 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
             alt={`${address} avatar`}
           />
         ) : (
-          <Blockies
-            className="mx-auto rounded-full"
-            size={blockieSizeMap[size]}
-            seed={address.toLowerCase()}
-            scale={3}
+          <div
+            className="mx-auto rounded-full overflow-hidden"
+            style={{
+              width: (blockieSizeMap[size] * 24) / blockieSizeMap["base"],
+              height: (blockieSizeMap[size] * 24) / blockieSizeMap["base"],
+            }}
+            dangerouslySetInnerHTML={{ __html: avatarSvg }}
           />
         )}
       </div>
+
+      {/* Address */}
       {disableAddressLink ? (
         <span className={`ml-1.5 text-${size} font-normal`}>{displayAddress}</span>
       ) : getTargetNetwork().id === hardhat.id ? (
@@ -113,26 +128,17 @@ export const Address = ({ address, disableAddressLink, format, size = "base" }: 
           {displayAddress}
         </a>
       )}
+
+      {/* Copy Icon */}
       {addressCopied ? (
-        <CheckCircleIcon
-          className="ml-1.5 text-xl font-normal text-sky-600 h-5 w-5 cursor-pointer"
-          aria-hidden="true"
-        />
+        <CheckCircleIcon className="ml-1.5 text-xl text-green-500 h-5 w-5 cursor-pointer" aria-hidden="true" />
       ) : (
-        <CopyToClipboard
-          text={address}
-          onCopy={() => {
-            setAddressCopied(true);
-            setTimeout(() => {
-              setAddressCopied(false);
-            }, 800);
-          }}
-        >
-          <DocumentDuplicateIcon
-            className="ml-1.5 text-xl font-normal text-sky-600 h-5 w-5 cursor-pointer"
-            aria-hidden="true"
-          />
-        </CopyToClipboard>
+        <DocumentDuplicateIcon
+          onClick={handleCopy}
+          className="ml-1.5 text-xl text-sky-600 h-5 w-5 cursor-pointer"
+          aria-hidden="true"
+          title="Copy address"
+        />
       )}
     </div>
   );

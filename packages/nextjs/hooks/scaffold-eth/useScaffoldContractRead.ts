@@ -18,14 +18,16 @@ import {
  */
 export const useScaffoldContractRead = <
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNames<ContractAbi<TContractName>, "pure" | "view">,
+  TFunctionName extends ExtractAbiFunctionNames<ContractAbi<TContractName>, "pure" | "view"> & string,
 >({
   contractName,
   functionName,
   args,
   ...readConfig
 }: UseScaffoldReadConfig<TContractName, TFunctionName>) => {
-  const { data: deployedContract } = useDeployedContractInfo(contractName);
+  const { data: deployedContract } = useDeployedContractInfo(contractName) as {
+    data: { address: `0x${string}`; abi: any } | undefined;
+  };
 
   return useContractRead({
     chainId: getTargetNetwork().id,

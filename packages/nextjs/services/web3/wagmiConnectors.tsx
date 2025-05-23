@@ -1,10 +1,9 @@
 import { connectorsForWallets } from "@rainbow-me/rainbowkit";
 import {
-  braveWallet,
-  coinbaseWallet,
-  ledgerWallet,
+  // hahaWallet, // Added
   metaMaskWallet,
-  rainbowWallet,
+  okxWallet,
+  rabbyWallet, // Added Rabby Wallet
   walletConnectWallet,
 } from "@rainbow-me/rainbowkit/wallets";
 import { configureChains } from "wagmi";
@@ -14,12 +13,14 @@ import { publicProvider } from "wagmi/providers/public";
 import scaffoldConfig from "~~/scaffold.config";
 import { burnerWalletConfig } from "~~/services/web3/wagmi-burner/burnerWalletConfig";
 import { getTargetNetwork } from "~~/utils/scaffold-eth";
+import { monadTestnet } from "~~/utils/scaffold-eth/customChains";
 
 const configuredNetwork = getTargetNetwork();
 const { onlyLocalBurnerWallet } = scaffoldConfig;
 
 // We always want to have mainnet enabled (ENS resolution, ETH price, etc). But only once.
-const enabledChains = configuredNetwork.id === 1 ? [configuredNetwork] : [configuredNetwork, chains.mainnet];
+const enabledChains =
+  configuredNetwork.id === 1 ? [configuredNetwork] : [configuredNetwork, chains.mainnet, monadTestnet];
 
 /**
  * Chains for the app
@@ -46,12 +47,11 @@ export const appChains = configureChains(
 
 const walletsOptions = { chains: appChains.chains, projectId: scaffoldConfig.walletConnectProjectId };
 const wallets = [
-  metaMaskWallet({ ...walletsOptions, shimDisconnect: true }),
-  walletConnectWallet(walletsOptions),
-  ledgerWallet(walletsOptions),
-  braveWallet(walletsOptions),
-  coinbaseWallet({ ...walletsOptions, appName: "scaffold-eth-2" }),
-  rainbowWallet(walletsOptions),
+  metaMaskWallet({ ...walletsOptions, shimDisconnect: true }), // Tambahkan shimDisconnect
+  walletConnectWallet({ ...walletsOptions }),
+  okxWallet({ ...walletsOptions, shimDisconnect: true }), // Tambahkan shimDisconnect
+  rabbyWallet({ ...walletsOptions }), // Added Rabbit Wallet
+  // hahaWallet(walletsOptions), // Added
   ...(configuredNetwork.id === chains.hardhat.id || !onlyLocalBurnerWallet
     ? [burnerWalletConfig({ chains: [appChains.chains[0]] })]
     : []),
@@ -66,3 +66,8 @@ export const wagmiConnectors = connectorsForWallets([
     wallets,
   },
 ]);
+
+// tombol "Disconnect" di UI Anda
+export const DisconnectButton = ({ disconnect }: { disconnect: () => void }) => (
+  <button onClick={disconnect}>Disconnect</button>
+);

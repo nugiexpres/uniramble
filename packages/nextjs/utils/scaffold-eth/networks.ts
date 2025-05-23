@@ -1,3 +1,4 @@
+import { monadTestnet } from "./customChains";
 import * as chains from "wagmi/chains";
 import scaffoldConfig from "~~/scaffold.config";
 
@@ -15,6 +16,9 @@ export const NETWORKS_EXTRA_DATA: Record<string, TChainAttributes> = {
   },
   [chains.mainnet.id]: {
     color: "#ff8b9e",
+  },
+  [monadTestnet.id]: {
+    color: "#0975F6",
   },
   [chains.sepolia.id]: {
     color: ["#5f4bb6", "#87ff65"],

@@ -16,10 +16,15 @@ const Debug: NextPage = () => {
   );
 
   useEffect(() => {
+    console.log("Fetched contract names:", contractNames); // Debugging contract names
     if (!contractNames.includes(selectedContract)) {
       setSelectedContract(contractNames[0]);
     }
   }, [selectedContract, setSelectedContract]);
+
+  useEffect(() => {
+    console.log("Selected contract:", selectedContract); // Debugging selected contract
+  }, [selectedContract]);
 
   return (
     <>
@@ -39,17 +44,17 @@ const Debug: NextPage = () => {
                     className={`btn btn-secondary btn-sm normal-case font-thin ${
                       contractName === selectedContract ? "bg-base-300" : "bg-base-100"
                     }`}
-                    key={contractName}
+                    key={String(contractName)}
                     onClick={() => setSelectedContract(contractName)}
                   >
-                    {contractName}
+                    {String(contractName)}
                   </button>
                 ))}
               </div>
             )}
             {contractNames.map(contractName => (
               <ContractUI
-                key={contractName}
+                key={String(contractName)}
                 contractName={contractName}
                 className={contractName === selectedContract ? "" : "hidden"}
               />

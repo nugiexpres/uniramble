@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import {
   Abi,
   AbiParameterToPrimitiveType,
@@ -10,15 +11,16 @@ import type { ExtractAbiFunctionNames } from "abitype";
 import { Address, Log, TransactionReceipt } from "viem";
 import { Prettify } from "viem/dist/types/types/utils";
 import { UseContractEventConfig, UseContractReadConfig, UseContractWriteConfig } from "wagmi";
-import contractsData from "~~/generated/deployedContracts";
+import deployedContractsData from "~~/generated/deployedContracts"; // Changed import name
 import scaffoldConfig from "~~/scaffold.config";
 
+// Define the type based on the structure of deployedContracts.ts
 export type GenericContractsDeclaration = {
-  [key: number]: readonly {
-    name: string;
+  [chainId: number]: readonly {
     chainId: string;
+    name: string;
     contracts: {
-      [key: string]: {
+      [contractName: string]: {
         address: Address;
         abi: Abi;
       };
@@ -26,23 +28,25 @@ export type GenericContractsDeclaration = {
   }[];
 };
 
-export const contracts = contractsData as GenericContractsDeclaration | null;
+// Cast the imported data to the defined type
+export const contracts: GenericContractsDeclaration = deployedContractsData as any;
 
-type ConfiguredChainId = (typeof scaffoldConfig)["targetNetwork"]["id"];
+type ConfiguredChainId = `${(typeof scaffoldConfig)["targetNetwork"]["id"]}`;
 
-type IsContractDeclarationMissing<TYes, TNo> = typeof contractsData extends { [key in ConfiguredChainId]: any }
+type IsContractDeclarationMissing<TYes, TNo> = typeof contracts extends { [key in ConfiguredChainId]: any }
   ? TNo
   : TYes;
 
-type ContractsDeclaration = IsContractDeclarationMissing<GenericContractsDeclaration, typeof contractsData>;
+type ContractsDeclaration = IsContractDeclarationMissing<GenericContractsDeclaration, typeof contracts>;
 
-type Contracts = ContractsDeclaration[ConfiguredChainId][0]["contracts"];
+type Contracts =
+  ContractsDeclaration[ConfiguredChainId extends keyof ContractsDeclaration ? ConfiguredChainId : never][0]["contracts"];
 
 export type ContractName = keyof Contracts;
 
 export type Contract<TContractName extends ContractName> = Contracts[TContractName];
 
-type InferContractAbi<TContract> = TContract extends { abi: infer TAbi } ? TAbi : never;
+type InferContractAbi<TContract> = TContract extends { abi: infer TAbi } ? (TAbi extends Abi ? TAbi : never) : never;
 
 export type ContractAbi<TContractName extends ContractName = ContractName> = InferContractAbi<Contract<TContractName>>;
 
@@ -74,6 +78,7 @@ export enum ContractCodeStatus {
   "LOADING",
   "DEPLOYED",
   "NOT_FOUND",
+  "ERROR",
 }
 
 type AbiStateMutability = "pure" | "view" | "nonpayable" | "payable";
@@ -85,7 +90,7 @@ export type FunctionNamesWithInputs<
   TAbiStateMutibility extends AbiStateMutability = AbiStateMutability,
 > = Exclude<
   Extract<
-    ContractAbi<TContractName>[number],
+    ContractAbi<TContractName> extends Array<infer T> ? T : never,
     {
       type: "function";
       stateMutability: TAbiStateMutibility;
@@ -94,7 +99,9 @@ export type FunctionNamesWithInputs<
   {
     inputs: readonly [];
   }
->["name"];
+> extends { name: infer TName }
+  ? TName
+  : never;
 
 type Expand<T> = T extends object ? (T extends infer O ? { [K in keyof O]: O[K] } : never) : T;
 
@@ -105,37 +112,38 @@ type OptionalTupple<T> = T extends readonly [infer H, ...infer R] ? readonly [H 
 type UseScaffoldArgsParam<
   TContractName extends ContractName,
   TFunctionName extends ExtractAbiFunctionNames<ContractAbi<TContractName>>,
-> = TFunctionName extends FunctionNamesWithInputs<TContractName>
+> = [TFunctionName] extends [FunctionNamesWithInputs<TContractName> & string]
   ? {
-      args: OptionalTupple<UnionToIntersection<AbiFunctionArguments<ContractAbi<TContractName>, TFunctionName>>>;
-    }
+    args: OptionalTupple<UnionToIntersection<AbiFunctionArguments<ContractAbi<TContractName>, TFunctionName>>>;
+  }
   : {
-      args?: never;
-    };
+    args?: never;
+  };
 
 type ExtractStateMutability<
   TContractName extends ContractName,
   TFunctionName extends ExtractAbiFunctionNames<ContractAbi<TContractName>, WriteAbiStateMutability>,
-> = Extract<
-  ContractAbi<TContractName>[number],
-  {
-    name: TFunctionName;
-    stateMutability: string;
-  }
->["stateMutability"];
+> = NonNullable<
+  Extract<
+    ContractAbi<TContractName>[number],
+    {
+      name: TFunctionName;
+      stateMutability: string;
+    }
+  >
+> extends { stateMutability: infer S }
+  ? S
+  : never;
 
+// Loosen UseScaffoldReadConfig to allow any string for functionName when the contract declaration is missing
 export type UseScaffoldReadConfig<
   TContractName extends ContractName,
-  TFunctionName extends ExtractAbiFunctionNames<ContractAbi<TContractName>, ReadAbiStateMutability>,
+  TFunctionName extends ExtractAbiFunctionNames<ContractAbi<TContractName>, ReadAbiStateMutability> = any,
 > = {
   contractName: TContractName;
-} & IsContractDeclarationMissing<
-  Partial<UseContractReadConfig>,
-  {
-    functionName: TFunctionName;
-  } & UseScaffoldArgsParam<TContractName, TFunctionName> &
-    Omit<UseContractReadConfig, "chainId" | "abi" | "address" | "functionName" | "args">
->;
+  functionName: IsContractDeclarationMissing<string, TFunctionName>;
+} & Omit<UseContractReadConfig, "chainId" | "abi" | "address" | "functionName" | "args"> &
+  UseScaffoldArgsParam<TContractName, TFunctionName>;
 
 export type UseScaffoldWriteConfig<
   TContractName extends ContractName,
@@ -145,18 +153,18 @@ export type UseScaffoldWriteConfig<
   onBlockConfirmation?: (txnReceipt: TransactionReceipt) => void;
   blockConfirmations?: number;
 } & IsContractDeclarationMissing<
-  Partial<Omit<UseContractWriteConfig, "value"> & { value: `${number}` }>,
+  Partial<Omit<UseContractWriteConfig, "value"> & { value: string | undefined }>,
   (ExtractStateMutability<TContractName, TFunctionName> extends "payable"
-    ? { value: `${number}` }
+    ? { value: string | undefined }
     : { value?: never }) & {
-    functionName: TFunctionName;
-  } & UseScaffoldArgsParam<TContractName, TFunctionName> &
-    Omit<UseContractWriteConfig, "chainId" | "abi" | "address" | "functionName" | "args" | "value" | "mode">
+      functionName: TFunctionName;
+    } & UseScaffoldArgsParam<TContractName, TFunctionName> &
+  Omit<UseContractWriteConfig, "chainId" | "abi" | "address" | "functionName" | "args" | "value" | "mode">
 >;
 
 export type UseScaffoldEventConfig<
   TContractName extends ContractName,
-  TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
+  TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>> & string,
 > = {
   contractName: TContractName;
 } & IsContractDeclarationMissing<
@@ -166,10 +174,12 @@ export type UseScaffoldEventConfig<
   UseContractEventConfig<ContractAbi<TContractName>, TEventName>
 >;
 
+type ArrayElement<T> = T extends readonly (infer E)[] ? E : never;
+
 type IndexedEventInputs<
   TContractName extends ContractName,
   TEventName extends ExtractAbiEventNames<ContractAbi<TContractName>>,
-> = Extract<AbiEventInputs<ContractAbi<TContractName>, TEventName>[number], { indexed: true }>;
+> = Extract<ArrayElement<AbiEventInputs<ContractAbi<TContractName>, TEventName>>, { indexed: true }>;
 
 export type EventFilters<
   TContractName extends ContractName,
@@ -177,13 +187,19 @@ export type EventFilters<
 > = IsContractDeclarationMissing<
   any,
   IndexedEventInputs<TContractName, TEventName> extends never
-    ? never
-    : {
-        [Key in IsContractDeclarationMissing<
-          any,
-          IndexedEventInputs<TContractName, TEventName>["name"]
-        >]?: AbiParameterToPrimitiveType<Extract<IndexedEventInputs<TContractName, TEventName>, { name: Key }>>;
-      }
+  ? never
+  : {
+    [Key in IsContractDeclarationMissing<
+      any,
+      IndexedEventInputs<TContractName, TEventName> extends { name: infer N }
+      ? N extends string
+      ? N
+      : never
+      : never
+    > as Key extends string ? Key : never]?: AbiParameterToPrimitiveType<
+      Extract<IndexedEventInputs<TContractName, TEventName>, { name: Key & string } & { type: string }>
+    >;
+  }
 >;
 
 export type UseScaffoldEventHistoryConfig<

@@ -1,5 +1,5 @@
 node_modules
-
+.env
 # dependencies, yarn, etc
 # yarn / eslint
 .yarn/*
@@ -11,3 +11,16 @@ node_modules
 .eslintcache
 .vscode/**
 .DS_Store
+
+# local build
+node_modules
+.env
+.next
+out
+dist
+deployments
+artifacts
+cache
+typechain
+generated
+generated/*

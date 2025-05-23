@@ -2,18 +2,21 @@
   "name": "se-2",
   "version": "0.0.1",
   "private": true,
-  "workspaces": {
-    "packages": [
-      "packages/hardhat",
-      "packages/nextjs"
-    ]
+  "engines": {
+    "node": "18"
   },
+  "workspaces": [
+    "packages/hardhat",
+    "packages/nextjs"
+  ],
   "scripts": {
     "account": "yarn workspace @se-2/hardhat account",
     "chain": "yarn workspace @se-2/hardhat chain",
     "fork": "yarn workspace @se-2/hardhat fork",
     "deploy": "yarn workspace @se-2/hardhat deploy",
     "verify": "yarn workspace @se-2/hardhat verify",
+    "verify:sourcify": "yarn workspace @se-2/hardhat verify:sourcify",
+    "clean": "yarn workspace @se-2/hardhat hardhat clean",
     "compile": "yarn workspace @se-2/hardhat compile",
     "generate": "yarn workspace @se-2/hardhat generate",
     "hardhat:lint": "yarn workspace @se-2/hardhat lint",
@@ -31,10 +34,39 @@
   },
   "packageManager": "yarn@3.2.3",
   "devDependencies": {
+    "@nomicfoundation/hardhat-chai-matchers": "^2.0.8",
+    "@nomicfoundation/hardhat-ethers": "^3.0.8",
+    "@nomicfoundation/hardhat-verify": "^2.0.13",
+    "@nomiclabs/hardhat-ethers": "^2.2.3",
+    "@typechain/ethers-v6": "^0.5.1",
+    "@types/axios": "^0.14.4",
+    "@types/chai": "^5.2.1",
+    "@types/ws": "^8",
+    "hardhat": "^2.23.0",
     "husky": "^8.0.1",
-    "lint-staged": "^13.0.3"
+    "lint-staged": "^13.0.3",
+    "typescript": "5.0.4",
+    "vercel": "28.15.1"
   },
   "resolutions": {
-    "usehooks-ts@^2.7.2": "patch:usehooks-ts@npm:^2.7.2#./.yarn/patches/usehooks-ts-npm-2.7.2-fceffe0e43.patch"
+    "typescript": "5.0.4",
+    "usehooks-ts": "2.16.0"
+  },
+  "dependencies": {
+    "@dicebear/collection": "^9.2.2",
+    "@dicebear/core": "^9.2.2",
+    "@dicebear/notionists": "^9.2.2",
+    "axios": "^1.8.4",
+    "bufferutil": "^4.0.9",
+    "dotenv": "^16.4.7",
+    "ethers": "^6.13.5",
+    "fs": "^0.0.1-security",
+    "net": "^1.0.2",
+    "next-transpile-modules": "^10.0.1",
+    "react-use": "^17.6.0",
+    "tls": "^0.0.1",
+    "usehooks-ts": "2.16.0",
+    "utf-8-validate": "^6.0.5",
+    "ws": "^8.18.1"
   }
 }

@@ -32,7 +32,12 @@ export const useScaffoldEventHistory = <
   const [events, setEvents] = useState<any[]>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string>();
-  const { data: deployedContractData, isLoading: deployedContractLoading } = useDeployedContractInfo(contractName);
+  const { data: deployedContractData, isLoading: deployedContractLoading } = (useDeployedContractInfo<TContractName>(
+    contractName,
+  ) as unknown as {
+    data: { abi: Abi; address: string } | null;
+    isLoading: boolean;
+  }) || { data: null, isLoading: false };
   const publicClient = usePublicClient();
 
   useEffect(() => {
@@ -42,9 +47,13 @@ export const useScaffoldEventHistory = <
           throw new Error("Contract not found");
         }
 
-        const event = (deployedContractData.abi as Abi).find(
-          part => part.type === "event" && part.name === eventName,
-        ) as AbiEvent;
+        const event = (deployedContractData?.abi as Abi | undefined)?.find(
+          (part): part is AbiEvent => part.type === "event" && "name" in part && part.name === eventName,
+        ) as AbiEvent | undefined;
+
+        if (!event) {
+          throw new Error(`Event ${eventName} not found in the ABI`);
+        }
 
         const logs = await publicClient.getLogs({
           address: deployedContractData?.address,

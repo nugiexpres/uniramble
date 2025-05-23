@@ -15,12 +15,14 @@ const setNewEnvConfig = (existingEnvConfig = {}) => {
   const newEnvConfig = {
     ...existingEnvConfig,
     DEPLOYER_PRIVATE_KEY: randomWallet.privateKey,
+    SALT: Date.now().toString(), // salt unik
   };
 
   // Store in .env
   fs.writeFileSync(envFilePath, stringify(newEnvConfig));
   console.log("📄 Private Key saved to packages/hardhat/.env file");
   console.log("🪄 Generated wallet address:", randomWallet.address);
+  console.log("🧂 Generated salt:", newEnvConfig.SALT); // Log salt
 };
 
 async function main() {

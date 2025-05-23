@@ -11,19 +11,19 @@ import { Contract, ContractCodeStatus, ContractName, contracts } from "~~/utils/
 export const useDeployedContractInfo = <TContractName extends ContractName>(contractName: TContractName) => {
   const isMounted = useIsMounted();
   const deployedContract = contracts?.[scaffoldConfig.targetNetwork.id]?.[0]?.contracts?.[
-    contractName as ContractName
+    contractName as string
   ] as Contract<TContractName>;
   const [status, setStatus] = useState<ContractCodeStatus>(ContractCodeStatus.LOADING);
   const publicClient = usePublicClient({ chainId: scaffoldConfig.targetNetwork.id });
 
   useEffect(() => {
     const checkContractDeployment = async () => {
-      if (!deployedContract) {
+      if (!deployedContract || typeof (deployedContract as { address?: string }).address !== "string") {
         setStatus(ContractCodeStatus.NOT_FOUND);
         return;
       }
       const code = await publicClient.getBytecode({
-        address: deployedContract.address,
+        address: (deployedContract as { address: string }).address,
       });
 
       if (!isMounted()) {

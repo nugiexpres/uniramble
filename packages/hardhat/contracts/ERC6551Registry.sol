@@ -7,6 +7,12 @@ import "./interfaces/IERC6551Registry.sol";
 contract ERC6551Registry is IERC6551Registry {
     error InitializationFailed();
 
+    // mapping to store created accounts for debugging
+    mapping(address => bool) public createdAccounts;
+
+    // mapping untuk melacak kombinasi parameter yang sudah digunakan
+    mapping(bytes32 => bool) public usedCombinations;
+
     function createAccount(
         address implementation,
         uint256 chainId,
@@ -28,9 +34,21 @@ contract ERC6551Registry is IERC6551Registry {
             keccak256(code)
         );
 
+        // Validasi kombinasi parameter unik
+        bytes32 combinationHash = keccak256(abi.encode(implementation, chainId, tokenContract, tokenId, salt));
+        require(!usedCombinations[combinationHash], "Combination already used");
+
+        require(!createdAccounts[_account], "Account already exists"); // Tambahkan validasi akun unik
+
         if (_account.code.length != 0) return _account;
 
         _account = Create2.deploy(0, bytes32(salt), code);
+
+        // Tandai kombinasi parameter sudah digunakan
+        usedCombinations[combinationHash] = true;
+
+        // Track created accounts
+        createdAccounts[_account] = true;
 
         if (initData.length != 0) {
             (bool success, ) = _account.call(initData);

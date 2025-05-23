@@ -15,3 +15,16 @@ artifacts-zk
 cache-zk
 
 deployments
+
+# local build
+node_modules
+.env
+.next
+out
+dist
+deployments
+artifacts
+cache
+typechain
+generated
+generated/*

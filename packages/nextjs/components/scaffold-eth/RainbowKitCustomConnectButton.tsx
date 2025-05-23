@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { ConnectButton } from "@rainbow-me/rainbowkit";
 import { QRCodeSVG } from "qrcode.react";
-import CopyToClipboard from "react-copy-to-clipboard";
 import { useDisconnect, useSwitchNetwork } from "wagmi";
 import {
   ArrowLeftOnRectangleIcon,
@@ -114,23 +113,22 @@ export const RainbowKitCustomConnectButton = () => {
                             <span className=" whitespace-nowrap">Copy address</span>
                           </div>
                         ) : (
-                          <CopyToClipboard
-                            text={account.address}
-                            onCopy={() => {
+                          <div
+                            onClick={() => {
+                              navigator.clipboard.writeText(account.address);
                               setAddressCopied(true);
                               setTimeout(() => {
                                 setAddressCopied(false);
                               }, 800);
                             }}
+                            className="btn-sm !rounded-xl flex gap-3 py-3 cursor-pointer"
                           >
-                            <div className="btn-sm !rounded-xl flex gap-3 py-3">
-                              <DocumentDuplicateIcon
-                                className="text-xl font-normal h-6 w-4 cursor-pointer ml-2 sm:ml-0"
-                                aria-hidden="true"
-                              />
-                              <span className=" whitespace-nowrap">Copy address</span>
-                            </div>
-                          </CopyToClipboard>
+                            <DocumentDuplicateIcon
+                              className="text-xl font-normal h-6 w-4 cursor-pointer ml-2 sm:ml-0"
+                              aria-hidden="true"
+                            />
+                            <span className=" whitespace-nowrap">Copy address</span>
+                          </div>
                         )}
                       </li>
                       <li>

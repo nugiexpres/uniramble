@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import React, { useCallback, useRef, useState } from "react";
 // import Image from "next/image";
 import Link from "next/link";
@@ -20,9 +21,8 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
     <Link
       href={href}
       passHref
-      className={`${
-        isActive ? "bg-secondary shadow-md" : ""
-      } hover:bg-secondary hover:shadow-md focus:!bg-secondary py-1.5 px-3 text-sm rounded-full gap-2`}
+      className={`${isActive ? "bg-secondary shadow-md" : ""
+        } hover:bg-secondary hover:shadow-md focus:!bg-secondary py-1.5 px-3 text-sm rounded-full gap-2`}
     >
       {children}
     </Link>
@@ -35,10 +35,21 @@ const NavLink = ({ href, children }: { href: string; children: React.ReactNode }
 export const Header = () => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const burgerMenuRef = useRef<HTMLDivElement>(null);
+
   useOutsideClick(
     burgerMenuRef,
     useCallback(() => setIsDrawerOpen(false), []),
   );
+
+
+  // NOT render header jika bukan di localhost
+  if (
+    process.env.NODE_ENV === "production" &&
+    typeof window !== "undefined" &&
+    window.location.hostname !== "localhost"
+  ) {
+    return null;
+  }
 
   const navLinks = (
     <>
@@ -46,15 +57,15 @@ export const Header = () => {
         <NavLink href="/">Home</NavLink>
       </li>
       <li>
-        <NavLink href="/example-ui">
+        <NavLink href="/uniboard">
           <PuzzlePieceIcon className="h-4 w-4" />
           Game
         </NavLink>
       </li>
       <li>
-        <NavLink href="/marketplace">
+        <NavLink href="/account">
           <BuildingStorefrontIcon className="h-4 w-4" />
-          Marketplace
+          Account
         </NavLink>
       </li>
       <li>
@@ -102,7 +113,7 @@ export const Header = () => {
             <Image alt="SE2 logo" className="cursor-pointer" fill src="/logo.svg" />
           </div> */}
           <div className="flex flex-col">
-            <span className="font-bold leading-tight">Food Scramble</span>
+            <span className="font-bold leading-tight">Uni Ramble</span>
             <span className="text-xs"></span>
           </div>
         </Link>
