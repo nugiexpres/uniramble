@@ -24,3 +24,4 @@ cache
 typechain
 generated
 generated/*
+.vercel
