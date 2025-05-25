@@ -63,6 +63,8 @@
     "fs": "^0.0.1-security",
     "net": "^1.0.2",
     "next-transpile-modules": "^10.0.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-use": "^17.6.0",
     "tls": "^0.0.1",
     "usehooks-ts": "2.16.0",

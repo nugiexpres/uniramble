@@ -176,7 +176,7 @@ export const Board = () => {
         <div className="grid lg:grid-cols-2 gap-8 flex-grow">
           {/* Wallet Bound Account */}
           <div>
-            <h2 className="text-2xl mb-0">Your Token Bound Account</h2>
+            <h2 className="text-2xl mb-0 underline">Token Bound Account</h2>
             <p className="mt-0">{tbaAddress}</p>
             <button
               className="py-2 px-16 mb-1 mt-3 mr-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
@@ -219,7 +219,7 @@ export const Board = () => {
             </button>
             {faucetUsed && <p className="text-green-500 mt-2">Faucet Ready 1*12 hours.</p>}
 
-            <h2 className="mt-4 text-3xl">Your bags</h2>
+            <h2 className="mt-4 text-3xl underline">Your bags</h2>
             <p>{(breadAmount?.toString() as any) / 10 ** 18} Bread</p>
             <p>{(meatAmount?.toString() as any) / 10 ** 18} Meat</p>
             <p>{(lettuceAmount?.toString() as any) / 10 ** 18} Lettuce</p>
@@ -247,7 +247,7 @@ export const Board = () => {
                       <Image className="chef" src="/assets/chog.png" width={40} height={40} alt="Chog" />
                     )}
                     {gridItem.typeGrid === "Stove" && (
-                      <Image src="/assets/stove.png" width={40} height={40} alt="Stove" />
+                      <Image src="/assets/stove-u.png" width={80} height={80} alt="Stove Nad" />
                     )}
                   </div>
                 );

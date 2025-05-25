@@ -260,7 +260,7 @@ const Account: NextPage = () => {
             {specialBoxCount > 0 ? (
               <>
                 <div className="relative w-20 h-20 border bg-white rounded-lg shadow-lg flex items-center justify-center">
-                  <Image src="/assets/special-box.png" width={70} height={70} alt="Special Box" />
+                  <Image src="/assets/specialBox.png" width={70} height={70} alt="Special Box" />
                   <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full shadow-md">
                     x{specialBoxCount}
                   </span>
