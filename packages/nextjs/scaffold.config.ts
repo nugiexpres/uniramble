@@ -1,10 +1,11 @@
-// import { NETWORKS_EXTRA_DATA } from "./utils/scaffold-eth/networks";
 import * as chains from "wagmi/chains";
+
+// import { monadTestnet } from "~~/utils/scaffold-eth/customChains";
 
 // Import other custom network
 
 export type ScaffoldConfig = {
-  targetNetwork: chains.Chain;
+  targetNetworks: chains.Chain;
   pollingInterval: number;
   alchemyApiKey: string;
   walletConnectProjectId: string;
@@ -14,7 +15,7 @@ export type ScaffoldConfig = {
 
 const scaffoldConfig = {
   // The network where your DApp lives in
-  targetNetwork: chains.hardhat, // Change custom MonadTestnet network here
+  targetNetworks: chains.sepolia, // Change custom MonadTestnet network here
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network

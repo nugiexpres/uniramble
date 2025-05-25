@@ -64,7 +64,7 @@ export const Footer = () => {
           </a>
           <GitHubIcon />
           <a
-            href="https://github.com/nugiexpres/Food-Scramble"
+            href="https://github.com/nugiexpres"
             target="_blank"
             rel="noreferrer"
             className="text-blue-400 hover:underline"

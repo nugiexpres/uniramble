@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import { BOARD_STYLES } from "./style";
+import styles from "@/styles/board.module.css";
 import { useAccount } from "wagmi";
 import { useScaffoldContractRead, useScaffoldContractWrite } from "~~/hooks/scaffold-eth";
 
@@ -187,7 +188,7 @@ export const Board = () => {
             <br />
             {canBuy && (
               <button
-                className="py-2 px-16 mb-1 mt-3 mr-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
+                className="py-2 px-16 mb-1 mt-3 mr-3 bg-yellow-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
                 onClick={() => buy()}
               >
                 Buy
@@ -195,7 +196,7 @@ export const Board = () => {
             )}
             <br />
             <button
-              className="py-2 px-16 mb-1 mt-3 mr-3 bg-green-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
+              className="py-2 px-16 mb-1 mt-3 mr-3 bg-red-500 rounded baseline hover:bg-green-300 disabled:opacity-50"
               onClick={() => travelRail()}
             >
               Use Rail
@@ -247,7 +248,13 @@ export const Board = () => {
                       <Image className="chef" src="/assets/chog.png" width={40} height={40} alt="Chog" />
                     )}
                     {gridItem.typeGrid === "Stove" && (
-                      <Image src="/assets/stove-u.png" width={80} height={80} alt="Stove Nad" />
+                      <Image
+                        src="/assets/stove-u.png"
+                        width={80}
+                        height={80}
+                        alt="Stove Nad"
+                        className={styles.stoveImage}
+                      />
                     )}
                   </div>
                 );
