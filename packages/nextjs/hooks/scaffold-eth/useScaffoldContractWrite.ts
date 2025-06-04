@@ -1,5 +1,5 @@
 import { Abi, ExtractAbiFunctionNames } from "abitype";
-import { useContractWrite, useNetwork } from "wagmi";
+import { UseContractWriteConfig, useContractWrite, useNetwork } from "wagmi";
 import { getParsedError } from "~~/components/scaffold-eth";
 import { useDeployedContractInfo, useTransactor } from "~~/hooks/scaffold-eth";
 import { getTargetNetwork, notification } from "~~/utils/scaffold-eth";
@@ -31,16 +31,18 @@ export const useScaffoldContractWrite = <
   const { chain } = useNetwork();
   const writeTx = useTransactor();
 
-  // Removed destructuring of 'contract' as it does not exist on the returned object
+  // Convert value to bigint only if it’s string | number | bigint
+  const safeValue =
+    typeof value === "string" || typeof value === "number" || typeof value === "bigint" ? BigInt(value) : undefined;
 
   const wagmiContractWrite = useContractWrite({
     chainId: chain?.id,
-    address: deployedContractData?.address,
+    address: deployedContractData?.address as `0x${string}`,
     abi: deployedContractData?.abi as Abi,
-    functionName: functionName as any,
-    args: args as unknown[],
-    value: value ? BigInt(value) : undefined,
-    ...writeConfig,
+    functionName: functionName as string,
+    args: args as readonly unknown[] | undefined,
+    value: safeValue ? BigInt(safeValue) : undefined,
+    ...(writeConfig as Partial<UseContractWriteConfig>),
   });
 
   const sendContractWriteTx = async () => {

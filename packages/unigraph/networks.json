@@ -1,0 +1,8 @@
+{
+  "monad-testnet": {
+    "SpecialBox": {
+      "address": "0x901c9fD50292d046a156c3991C94a70bDDc34f6D",
+      "startBlock": 19870001
+    }
+  }
+}

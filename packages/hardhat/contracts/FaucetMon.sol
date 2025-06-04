@@ -3,6 +3,7 @@ pragma solidity >=0.8.0 <0.9.0;
 
 contract FaucetMon {
     address public owner;
+    address public allowedCaller;
 
     event BalanceFunded(address indexed funder, uint256 amount);
     event BalanceWithdrawn(address indexed owner, uint256 amount);
@@ -16,9 +17,19 @@ contract FaucetMon {
         owner = msg.sender;
     }
 
+    function setAllowedCaller(address _caller) external onlyOwner {
+        allowedCaller = _caller;
+    }
+
+    function faucet(address to, uint256 amount) external {
+        require(msg.sender == allowedCaller, "FaucetMon: Not authorized to faucet");
+        require(address(this).balance >= amount, "FaucetMon: Not enough balance");
+        payable(to).transfer(amount);
+    }
+
     // Function to fund the faucet balance
     function fundFaucet() external payable {
-        require(msg.value > 0, "Must send some Ether to fund the faucet");
+        require(msg.value > 0, "Must send some native token to fund the faucet");
         emit BalanceFunded(msg.sender, msg.value);
     }
 

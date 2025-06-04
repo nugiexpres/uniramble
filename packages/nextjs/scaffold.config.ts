@@ -1,8 +1,7 @@
+import { monadTestnet } from "./utils/scaffold-eth/extendedChains";
 import * as chains from "wagmi/chains";
 
-// import { monadTestnet } from "~~/utils/scaffold-eth/customChains";
-
-// Import other custom network
+// import { extendedChains } from "~~/utils/scaffold-eth/extendedChains";
 
 export type ScaffoldConfig = {
   targetNetworks: chains.Chain;
@@ -12,10 +11,9 @@ export type ScaffoldConfig = {
   onlyLocalBurnerWallet: boolean;
   walletAutoConnect: boolean;
 };
-
-const scaffoldConfig = {
+export const scaffoldConfig = {
   // The network where your DApp lives in
-  targetNetworks: chains.sepolia, // Change custom MonadTestnet network here
+  targetNetworks: monadTestnet, // Change custom MonadTestnet network here
 
   // The interval at which your front-end polls the RPC servers for new data
   // it has no effect on the local network

@@ -31,7 +31,7 @@ p {
   @apply shadow-none;
 }
 
-grid-1 {
+.grid-1 {
   position: absolute;
   top: 0;
   left: 0;
@@ -40,123 +40,123 @@ grid-1 {
 .grid-2 {
   position: absolute;
   top: 0;
-  left: 90px;
+  left: 75px;
 }
 
 .grid-3 {
   position: absolute;
   top: 0;
-  left: 180px;
+  left: 150px;
 }
 
 .grid-4 {
   position: absolute;
   top: 0;
-  left: 270px;
+  left: 225px;
 }
 
 .grid-5 {
   position: absolute;
   top: 0;
-  left: 360px;
+  left: 300px;
 }
 
 .grid-6 {
   position: absolute;
   top: 0;
-  left: 450px;
+  left: 375px;
   z-index: 0 !important;
 }
 
 .grid-7 {
   position: absolute;
-  top: 90px;
-  left: 450px;
+  top: 75px;
+  left: 375px;
 }
 
 .grid-8 {
   position: absolute;
-  top: 180px;
-  left: 450px;
+  top: 150px;
+  left: 375px;
 }
 
 .grid-9 {
   position: absolute;
-  top: 270px;
-  left: 450px;
+  top: 225px;
+  left: 375px;
 }
 
 .grid-10 {
   position: absolute;
-  top: 360px;
-  left: 450px;
+  top: 300px;
+  left: 375px;
 }
 
 .grid-11 {
   position: absolute;
-  top: 450px;
-  left: 450px;
+  top: 375px;
+  left: 375px;
 }
 
 .grid-12 {
   position: absolute;
-  top: 450px;
-  left: 360px;
+  top: 375px;
+  left: 300px;
 }
 
 .grid-13 {
   position: absolute;
-  top: 450px;
-  left: 270px;
+  top: 375px;
+  left: 225px;
 }
 
 .grid-14 {
   position: absolute;
-  top: 450px;
-  left: 180px;
+  top: 375px;
+  left: 150px;
 }
 
 .grid-15 {
   position: absolute;
-  top: 450px;
-  left: 90px;
+  top: 375px;
+  left: 75px;
 }
 
 .grid-16 {
   position: absolute;
-  top: 450px;
+  top: 375px;
   left: 0;
   z-index: 0 !important;
 }
 
 .grid-17 {
   position: absolute;
-  top: 360px;
+  top: 300px;
   left: 0;
 }
 
 .grid-18 {
   position: absolute;
-  top: 270px;
+  top: 225px;
   left: 0;
 }
 
 .grid-19 {
   position: absolute;
-  top: 180px;
+  top: 150px;
   left: 0;
 }
 
 .grid-20 {
   position: absolute;
-  top: 90px;
+  top: 75px;
   left: 0;
 }
 
 .track {
   position: absolute;
-  top: -35px;
-  right: 246px;
+  top: -30px;
+  right: 175px;
   transform: rotate(45deg);
 }
 

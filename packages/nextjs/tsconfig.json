@@ -19,6 +19,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "typechain"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "typechain", "contracts"],
   "exclude": ["node_modules"]
 }

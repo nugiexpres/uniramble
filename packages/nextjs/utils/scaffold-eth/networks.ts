@@ -1,6 +1,9 @@
-import { monadTestnet } from "./customChains";
+import { monadTestnet } from "./extendedChains";
+import { Chain } from "wagmi";
 import * as chains from "wagmi/chains";
 import scaffoldConfig from "~~/scaffold.config";
+
+// import { extendedChains } from "~~/utils/scaffold-eth/extendedChains";
 
 export type TChainAttributes = {
   // color | [lightThemeColor, darkThemeColor]
@@ -92,7 +95,7 @@ export function getBlockExplorerTxLink(chainId: number, txnHash: string) {
  * @param address
  * @returns block explorer address URL and etherscan URL if block explorer URL is not present for wagmi network
  */
-export function getBlockExplorerAddressLink(network: chains.Chain, address: string) {
+export function getBlockExplorerAddressLink(network: Chain, address: string) {
   const blockExplorerBaseURL = network.blockExplorers?.default?.url;
   if (network.id === chains.hardhat.id) {
     return `/blockexplorer/address/${address}`;
@@ -109,8 +112,8 @@ export function getBlockExplorerAddressLink(network: chains.Chain, address: stri
  * @returns targetNetwork object consisting targetNetwork from scaffold.config and extra network metadata
  */
 
-export function getTargetNetwork(): chains.Chain & Partial<TChainAttributes> {
-  const configuredNetwork = scaffoldConfig.targetNetworks;
+export function getTargetNetwork(): Chain & Partial<TChainAttributes> {
+  const configuredNetwork = scaffoldConfig.targetNetworks as Chain;
 
   return {
     ...configuredNetwork,

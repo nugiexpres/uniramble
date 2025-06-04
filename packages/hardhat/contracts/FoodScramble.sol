@@ -12,7 +12,6 @@ import "./UnirambleMarketplace.sol";
 import "./ChefHelper.sol";
 import "./IngredientOracle.sol";
 import "./ChefGuild.sol";
-import "./PrepStation.sol";
 import "./KitchenTools.sol";
 
 contract FoodScramble {
@@ -23,7 +22,7 @@ contract FoodScramble {
   CoinToken public tomato;
   FoodNFT public hamburger;
   SpecialBox public specialBox;
-  FaucetMon public faucetMonContract;
+  FaucetMon public faucetMon;
   UnirambleMarketplace public marketplace;
   ChefHelper public helper;
   IngredientOracle public oracle;
@@ -61,7 +60,7 @@ contract FoodScramble {
   enum IngredientType { Bread, Meat, Lettuce, Tomato }
 
   event RollResult(address player, uint256 num);
-  event SpecialBoxMinted(address indexed user, uint256 specialBoxCount);
+  event SpecialBoxMinted(address indexed user, uint256 hamburgerCount);
 
   uint256 public constant FAUCET_AMOUNT = 0.25 ether;
   uint256 public constant FAUCET_COOLDOWN = 12 hours;
@@ -88,7 +87,7 @@ contract FoodScramble {
     tomato = CoinToken(_tomatoAddress);
     hamburger = FoodNFT(_hamburgerAddress);
     specialBox = SpecialBox(_specialBoxAddress);
-    faucetMonContract = FaucetMon(_faucetMonAddress);
+    faucetMon = FaucetMon(_faucetMonAddress);
     marketplace = UnirambleMarketplace(_marketplaceAddress);
     helper = ChefHelper(_helperAddress);
     oracle = IngredientOracle(_oracleAddress);
@@ -235,37 +234,47 @@ contract FoodScramble {
     tomato.mint(tba, 1 * 10 ** 18);
   }
 
-  function faucetMon() public {
+  function useFaucetMon() public {
     address tba = tbaList[msg.sender];
     uint256 playerPosition = player[tba];
     require(
         keccak256(abi.encodePacked(grid[playerPosition].typeGrid)) == keccak256(abi.encodePacked("Stove")),
-        "You must be on a stove grid to use the faucet."
+        "You must be on stove to use faucet."
     );
 
     uint256 currentTime = block.timestamp;
-    require(currentTime >= lastFaucetUsage[msg.sender] + FAUCET_COOLDOWN, "Faucet is on cooldown.");
+    require(currentTime >= lastFaucetUsage[msg.sender] + FAUCET_COOLDOWN, "Faucet already used. Wait 12 hour to use again.");
 
     lastFaucetUsage[msg.sender] = currentTime;
+
+    // Panggil kontrak FaucetMon untuk kirim ETH
+    faucetMon.faucet(msg.sender, FAUCET_AMOUNT);
   }
 
-  function mintSpecialBox() public {
-    address tba = tbaList[msg.sender];
+  function mintSpecialBoxNFT() public {
+        address tba = tbaList[msg.sender];
+        require(tba != address(0), "TBA not set");
 
-    uint256 hamburgerCount = hamburger.balanceOf(tba);
-    require(hamburgerCount >= 10, "You need at least 10 hamburger NFTs to mint a Special Box.");
+        uint256 hamburgerCount = getMyFoods(msg.sender).length;
+        require(hamburgerCount >= 10, "You need at least 10 hamburger NFTs to mint a Special Box");
 
-    uint256 currentRangeStart = (hamburgerCount / 10) * 10;
-    require(
-        lastMintedSpecialBox[msg.sender] < currentRangeStart,
-        "You can only mint one Special Box per range of 10 hamburgers."
-    );
+        uint256 currentRangeStart = (hamburgerCount / 10) * 10;
+        require(
+            lastMintedSpecialBox[msg.sender] < currentRangeStart,
+            "You can only mint one Special Box per range of 10 hamburgers"
+        );
 
-    specialBox.mint();
+        specialBox.mintSpecialBox(tba, "https://551506431204868b983b6e282e4bdf55.ipfs.4everland.link/ipfs/bafybeigl3nwkgeeo6ycwwosvd4ti5imalkqsnx7vtcluxcymmucfoufhvy");
 
-    lastMintedSpecialBox[msg.sender] = currentRangeStart;
+        lastMintedSpecialBox[msg.sender] = currentRangeStart;
 
-    emit SpecialBoxMinted(msg.sender, hamburgerCount);
+        emit SpecialBoxMinted(msg.sender, hamburgerCount);
+    }
+
+    // menyimpan TBA user
+  function setTBA(address user, address tba) external {
+        // validasi
+        tbaList[user] = tba;
   }
 
   function accountReady(address user) public view returns (bool) {

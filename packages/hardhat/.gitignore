@@ -28,3 +28,7 @@ cache
 typechain
 generated
 generated/*
+
+# backup files future build
+*.bak
+backup

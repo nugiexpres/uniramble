@@ -105,7 +105,7 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // Deploy the SpecialBox contract with SpecialPass and FoodNFT addresses as constructor arguments
   await deploy("SpecialBox", {
     from: deployer,
-    args: [foodNFTContract.address], // FoodNFT contract addresses
+    args: [],
     log: true,
   });
   const SpecialBoxContract = await hre.deployments.get("SpecialBox");
@@ -166,4 +166,4 @@ export default deployYourContract;
 
 // Tags are useful if you have multiple deploy files and only want to run one of them.
 // e.g. yarn deploy --tags YourContract
-deployYourContract.tags = ["FoodNFT", "ERC6551Registry", "FoodScramble", "FaucetMon"];
+deployYourContract.tags = ["FoodNFT", "ERC6551Registry", "FoodScramble", "FaucetMon", "SpecialBox"];

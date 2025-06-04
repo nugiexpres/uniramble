@@ -1,9 +1,9 @@
 /* eslint-disable prettier/prettier */
 import { useEffect, useMemo, useState } from "react";
 import Image from "next/image";
-import Link from "next/link";
+// import Link from "next/link";
 import deployedContracts from "../generated/deployedContracts";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 import type { NextPage } from "next";
 import { parseEther } from "viem";
 import { useAccount, useNetwork } from "wagmi";
@@ -20,7 +20,7 @@ const Account: NextPage = () => {
   const [isMinted, setIsMinted] = useState(false);
   const [isAccountCreated, setIsAccountCreated] = useState(false);
   const [isNFTSelectable, setIsNFTSelectable] = useState(true);
-  const [specialBoxCount, setSpecialBoxCount] = useState(0);
+  const [specialBoxCount, setSpecialBoxCount] = useState<number>(0);
 
   // ==================================== CONTRACT ADDRESSES ====================================
   const contracts = deployedContracts as Record<number, any>;
@@ -57,8 +57,9 @@ const Account: NextPage = () => {
   // SpecialBox Contract
   const { data: specialBoxCountData } = useScaffoldContractRead({
     contractName: "SpecialBox",
-    functionName: "getSpecialBoxCount",
+    functionName: "getUserSpecialBoxBalance",
     args: [address],
+    watch: true,
   });
 
   // ==================================== CONTRACT WRITE HOOKS ====================================
@@ -92,8 +93,8 @@ const Account: NextPage = () => {
 
   // SpecialBox Contract
   const { writeAsync: mintSpecialBox } = useScaffoldContractWrite({
-    contractName: "SpecialBox",
-    functionName: "mint",
+    contractName: "FoodScramble",
+    functionName: "mintSpecialBoxNFT",
     args: [],
     onBlockConfirmation: (txn: { blockHash: string }) => {
       console.log("Special Box Minted", txn.blockHash);
@@ -116,9 +117,9 @@ const Account: NextPage = () => {
 
   useEffect(() => {
     if (specialBoxCountData) {
-      setSpecialBoxCount(safeSpecialBoxCount);
+      setSpecialBoxCount(Number(specialBoxCountData));
     }
-  }, [safeSpecialBoxCount, specialBoxCountData]);
+  }, [specialBoxCountData]);
 
   const handleMintChef = async () => {
     try {
@@ -169,37 +170,7 @@ const Account: NextPage = () => {
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree&display=swap" rel="stylesheet" />
       </MetaHeader>
-      <header className="bg-purple-700 py-5 relative">
-        <div className="container mx-auto flex justify-between items-center px-5">
-          <h1 className="text-4xl font-bold">
-            <Link href="/" className="text-white hover:text-yellow-300">
-              UniRamble
-            </Link>
-          </h1>
-          <nav className="absolute top-5 right-5 flex items-center space-x-4 bg-purple-800 p-3 rounded-lg shadow-lg">
-            <Link
-              href="/"
-              className="text-white hover:text-yellow-300 px-4 py-2 rounded-lg bg-black hover:bg-purple-500"
-            >
-              Home
-            </Link>
-            <Link
-              href="/account"
-              className="text-white hover:text-yellow-300 px-4 py-2 rounded-lg bg-black hover:bg-purple-500"
-            >
-              Account
-            </Link>
-            <Link
-              href="/uniboard"
-              className="text-white hover:text-yellow-300 px-4 py-2 rounded-lg bg-black hover:bg-purple-500"
-            >
-              GameBoard
-            </Link>
-            <ConnectButton />
-          </nav>
-        </div>
-      </header>
-      <div className="grid lg:grid-cols-2 gap-8 flex-grow mt-0 px-20">
+      <div className="grid lg:grid-cols-2 gap-8 flex-grow mt-4 lg:mt-8 px-5 md:px-10 lg:px-20">
         {/* NFT Purchase Section */}
         <div className="px-5 bg-purple-300 rounded-lg p-5">
           <h1 className="text-left mb-5 text-2xl underline">Buy a NFT: 1 MON</h1>
@@ -253,7 +224,7 @@ const Account: NextPage = () => {
                 <p className="mt-2 text-center">Hamburger</p>
               </>
             ) : (
-              <p>No NFTs found</p>
+              <p>No Hamburger found</p>
             )}
           </div>
           <div className="flex flex-col items-start mt-5">
@@ -262,7 +233,7 @@ const Account: NextPage = () => {
                 <div className="relative w-20 h-20 border bg-white rounded-lg shadow-lg flex items-center justify-center">
                   <Image src="/assets/specialBox.png" width={70} height={70} alt="Special Box" />
                   <span className="absolute top-0 right-0 bg-red-500 text-white text-xs px-2 py-1 rounded-full shadow-md">
-                    x{specialBoxCount}
+                    x{safeSpecialBoxCount}
                   </span>
                 </div>
                 <p className="mt-2 text-center">Special Box</p>
@@ -277,11 +248,6 @@ const Account: NextPage = () => {
             >
               Mint Special Box
             </button>
-            {canMintSpecialBox && (
-              <p className="text-green-500 mt-2">
-                You can mint {eligibleSpecialBoxCount - specialBoxCount} more Special Box(es).
-              </p>
-            )}
             {!canMintSpecialBox && (
               <p className="text-red-500 mt-2">Collect 10 more hamburgers to mint the next Special Box.</p>
             )}

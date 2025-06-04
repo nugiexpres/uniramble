@@ -1,42 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ConnectButton } from "@rainbow-me/rainbowkit";
+
+// import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Home = () => {
   return (
     <div className="bg-purple-900 text-white min-h-screen">
-      <header className="bg-purple-700 py-5 relative">
-        <div className="container mx-auto flex justify-between items-center px-5">
-          <h1 className="text-4xl font-bold flex items-center space-x-3">
-            <Image src="/assets/uniramble-logo.png" alt="Uni Ramble" width={80} height={80} />
-            <Link href="/" className="text-white hover:text-yellow-300">
-              UniRamble
-            </Link>
-          </h1>
-          <nav className="absolute top-5 right-5 flex items-center space-x-4 bg-purple-800 p-3 rounded-lg shadow-lg">
-            <Link
-              href="/"
-              className="text-white hover:text-yellow-300 px-4 py-2 rounded-md bg-purple-600 hover:bg-purple-500"
-            >
-              Home
-            </Link>
-            <Link
-              href="/account"
-              className="text-white hover:text-yellow-300 px-4 py-2 rounded-md bg-purple-600 hover:bg-purple-500"
-            >
-              Account
-            </Link>
-            <Link
-              href="/uniboard"
-              className="text-white hover:text-yellow-300 px-4 py-2 rounded-md bg-purple-600 hover:bg-purple-500"
-            >
-              GameBoard
-            </Link>
-            <ConnectButton />
-          </nav>
-        </div>
-      </header>
-
       <main className="container mx-auto px-5 py-10">
         <section className="text-center">
           <h2 className="text-5xl font-bold mb-5">Welcome to Uni Ramble</h2>

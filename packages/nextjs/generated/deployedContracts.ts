@@ -5,7 +5,7 @@ const contracts = {
       name: "monadTestnet",
       contracts: {
         BreadToken: {
-          address: "0x719779e110837E0433378f6c7627CbF5D1feAE52",
+          address: "0xF2A080C96Ffa1603675C5A2feF1E2a39DB81f310",
           abi: [
             {
               inputs: [],
@@ -321,7 +321,7 @@ const contracts = {
           ],
         },
         ChefHelper: {
-          address: "0x44c7ca8c44a24B83B745d843E78B471733D8D9B4",
+          address: "0x9D4FB399471842dA67D938631179E6bB5d963B2C",
           abi: [
             {
               anonymous: false,
@@ -456,7 +456,7 @@ const contracts = {
           ],
         },
         CoinToken: {
-          address: "0xa44A2dD5E23197F2042B90D51a72671c4Ea07D30",
+          address: "0xe357d3936BbeF10df41dbf8f1c139f1adD87EdC5",
           abi: [
             {
               inputs: [],
@@ -772,7 +772,7 @@ const contracts = {
           ],
         },
         ERC6551Account: {
-          address: "0x34eDe862467512C4AA4b0E246A1F5c346D145556",
+          address: "0xbB848f37c0BB19F6a8975B650C90852E274174E4",
           abi: [
             {
               inputs: [
@@ -923,7 +923,7 @@ const contracts = {
           ],
         },
         ERC6551Registry: {
-          address: "0x9E782828Ea20EeBB7896a207efB286620C062f67",
+          address: "0xCDDa8969Cd194BF77779e32AA889255F82aEAbd9",
           abi: [
             {
               inputs: [],
@@ -1097,7 +1097,7 @@ const contracts = {
           ],
         },
         FaucetMon: {
-          address: "0xe9a3BFA10b366D9B21666043Aa28689d84BEa5fA",
+          address: "0x5F13F628fe9619827D70d9C7Fa67c80DD7d9Cde9",
           abi: [
             {
               inputs: [],
@@ -1144,6 +1144,37 @@ const contracts = {
             },
             {
               inputs: [],
+              name: "allowedCaller",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+              ],
+              name: "faucet",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
               name: "fundFaucet",
               outputs: [],
               stateMutability: "payable",
@@ -1160,6 +1191,19 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_caller",
+                  type: "address",
+                },
+              ],
+              name: "setAllowedCaller",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -1182,7 +1226,7 @@ const contracts = {
           ],
         },
         FoodNFT: {
-          address: "0x8CfAAC996c50921F0c4241041d776667ba97aE2c",
+          address: "0xf10A7510C5A6FA8636C7445528c28dc67A4E3BEE",
           abi: [
             {
               inputs: [
@@ -1758,7 +1802,7 @@ const contracts = {
           ],
         },
         FoodScramble: {
-          address: "0x5578E0e739DD165e09f3980e603c08AA5B101192",
+          address: "0xcfDDe811A59002D67b0887771e60f4F1D7A2773c",
           abi: [
             {
               inputs: [
@@ -1857,7 +1901,7 @@ const contracts = {
                 {
                   indexed: false,
                   internalType: "uint256",
-                  name: "specialBoxCount",
+                  name: "hamburgerCount",
                   type: "uint256",
                 },
               ],
@@ -2014,13 +2058,6 @@ const contracts = {
             {
               inputs: [],
               name: "faucetMon",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "faucetMonContract",
               outputs: [
                 {
                   internalType: "contract FaucetMon",
@@ -2281,7 +2318,7 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "mintSpecialBox",
+              name: "mintSpecialBoxNFT",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -2400,6 +2437,24 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tba",
+                  type: "address",
+                },
+              ],
+              name: "setTBA",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -2550,6 +2605,13 @@ const contracts = {
               type: "function",
             },
             {
+              inputs: [],
+              name: "useFaucetMon",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
               inputs: [
                 {
                   internalType: "address",
@@ -2582,7 +2644,7 @@ const contracts = {
           ],
         },
         IngredientOracle: {
-          address: "0x746BfEe62E432d901f976B4235225153AbF700bA",
+          address: "0x25E62e68CC0cfdE54Bec9fe14f01F975017343EF",
           abi: [
             {
               inputs: [],
@@ -2856,7 +2918,7 @@ const contracts = {
           ],
         },
         LettuceToken: {
-          address: "0x4805b99FD7c5CFCf1902eFa457A06F8F24bB5B4a",
+          address: "0x62b427b56B65aDEbba8563bE934144A9bb3EE797",
           abi: [
             {
               inputs: [],
@@ -3172,7 +3234,7 @@ const contracts = {
           ],
         },
         MeatToken: {
-          address: "0x947d4fADF3A2CC7980A1b011Ef70dd2A1062b940",
+          address: "0x85F7F55a85950530c05FBa9a0De686af30BE264F",
           abi: [
             {
               inputs: [],
@@ -3488,7 +3550,7 @@ const contracts = {
           ],
         },
         PaymentGateway: {
-          address: "0x4C50Adbf38D807B2d4E7Ce8f85857F2d03caf634",
+          address: "0x9115E838D03aE094205F176768C5897375230bc5",
           abi: [
             {
               inputs: [],
@@ -3605,16 +3667,10 @@ const contracts = {
           ],
         },
         SpecialBox: {
-          address: "0x41737Fa43c15Cf2cbf32Cacc3dfc9CFA5081965e",
+          address: "0x901c9fD50292d046a156c3991C94a70bDDc34f6D",
           abi: [
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "foodNFTAddress",
-                  type: "address",
-                },
-              ],
+              inputs: [],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -3725,6 +3781,50 @@ const contracts = {
                 {
                   indexed: true,
                   internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "tokenId",
+                  type: "uint256",
+                },
+              ],
+              name: "SpecialBoxMinted",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "target",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+              ],
+              name: "SpecialBoxRedeemed",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
                   name: "from",
                   type: "address",
                 },
@@ -3784,38 +3884,6 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "address",
-                  name: "user",
-                  type: "address",
-                },
-              ],
-              name: "canMintSpecialBox",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "foodNFTContract",
-              outputs: [
-                {
-                  internalType: "contract FoodNFT",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
                   internalType: "uint256",
                   name: "tokenId",
                   type: "uint256",
@@ -3840,12 +3908,55 @@ const contracts = {
                   type: "address",
                 },
               ],
-              name: "getSpecialBoxCount",
+              name: "getUserSpecialBoxBalance",
               outputs: [
                 {
                   internalType: "uint256",
                   name: "",
                   type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+              ],
+              name: "getUserTBA",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "hasRedeemedReward",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
                 },
               ],
               stateMutability: "view",
@@ -3876,9 +3987,26 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "mint",
-              outputs: [],
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "tokenURI",
+                  type: "string",
+                },
+              ],
+              name: "mintSpecialBox",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "function",
             },
@@ -3925,6 +4053,29 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "target",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes",
+                  name: "callData",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+              ],
+              name: "redeemSpecialBoxForReward",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -4006,12 +4157,67 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "boxRequired",
+                  type: "uint256",
+                },
+              ],
+              name: "setSpecialBoxRewardCost",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tba",
+                  type: "address",
+                },
+              ],
+              name: "setTBAForUser",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "address",
                   name: "",
                   type: "address",
                 },
               ],
-              name: "specialBoxCount",
+              name: "specialBoxBalances",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "specialBoxRewardCost",
               outputs: [
                 {
                   internalType: "uint256",
@@ -4057,6 +4263,25 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "tbaList",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "uint256",
                   name: "tokenId",
                   type: "uint256",
@@ -4068,6 +4293,25 @@ const contracts = {
                   internalType: "string",
                   name: "",
                   type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "totalBoxBurned",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
                 },
               ],
               stateMutability: "view",
@@ -4112,25 +4356,31 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
-                  name: "tokenId",
-                  type: "uint256",
+                  internalType: "address",
+                  name: "",
+                  type: "address",
                 },
                 {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "userRewardNames",
+              outputs: [
+                {
                   internalType: "string",
-                  name: "newTokenURI",
+                  name: "",
                   type: "string",
                 },
               ],
-              name: "updateTokenURI",
-              outputs: [],
-              stateMutability: "nonpayable",
+              stateMutability: "view",
               type: "function",
             },
           ],
         },
         SpiceToken: {
-          address: "0x051b78f75dE49b9Da07AAF3f5D57a00FaD3F47D5",
+          address: "0x81fF463Fc66ae8577567234a56aa5344824dB6e2",
           abi: [
             {
               inputs: [],
@@ -4423,7 +4673,7 @@ const contracts = {
           ],
         },
         UnirambleMarketplace: {
-          address: "0xceE96F31661C833Ee7770f717152fb8DfcF64515",
+          address: "0x19f26D29Ff3adA63893aE2865e711aB71403e744",
           abi: [
             {
               inputs: [
@@ -6546,7 +6796,7 @@ const contracts = {
           ],
         },
         FoodScramble: {
-          address: "0x9A676e781A523b5d0C0e43731313A708CB607508",
+          address: "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
           abi: [
             {
               inputs: [
@@ -6645,7 +6895,7 @@ const contracts = {
                 {
                   indexed: false,
                   internalType: "uint256",
-                  name: "specialBoxCount",
+                  name: "hamburgerCount",
                   type: "uint256",
                 },
               ],
@@ -7069,7 +7319,7 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "mintSpecialBox",
+              name: "mintSpecialBoxNFT",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -7188,6 +7438,24 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tba",
+                  type: "address",
+                },
+              ],
+              name: "setTBA",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -8396,13 +8664,7 @@ const contracts = {
           address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
           abi: [
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "foodNFTAddress",
-                  type: "address",
-                },
-              ],
+              inputs: [],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -8513,6 +8775,50 @@ const contracts = {
                 {
                   indexed: true,
                   internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "tokenId",
+                  type: "uint256",
+                },
+              ],
+              name: "SpecialBoxMinted",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "target",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+              ],
+              name: "SpecialBoxRedeemed",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
                   name: "from",
                   type: "address",
                 },
@@ -8572,38 +8878,6 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "address",
-                  name: "user",
-                  type: "address",
-                },
-              ],
-              name: "canMintSpecialBox",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "foodNFTContract",
-              outputs: [
-                {
-                  internalType: "contract FoodNFT",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
                   internalType: "uint256",
                   name: "tokenId",
                   type: "uint256",
@@ -8628,12 +8902,55 @@ const contracts = {
                   type: "address",
                 },
               ],
-              name: "getSpecialBoxCount",
+              name: "getUserSpecialBoxBalance",
               outputs: [
                 {
                   internalType: "uint256",
                   name: "",
                   type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+              ],
+              name: "getUserTBA",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "hasRedeemedReward",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
                 },
               ],
               stateMutability: "view",
@@ -8664,9 +8981,26 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "mint",
-              outputs: [],
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "tokenURI",
+                  type: "string",
+                },
+              ],
+              name: "mintSpecialBox",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "function",
             },
@@ -8713,6 +9047,29 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "target",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes",
+                  name: "callData",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+              ],
+              name: "redeemSpecialBoxForReward",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -8794,12 +9151,67 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "boxRequired",
+                  type: "uint256",
+                },
+              ],
+              name: "setSpecialBoxRewardCost",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tba",
+                  type: "address",
+                },
+              ],
+              name: "setTBAForUser",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "address",
                   name: "",
                   type: "address",
                 },
               ],
-              name: "specialBoxCount",
+              name: "specialBoxBalances",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "specialBoxRewardCost",
               outputs: [
                 {
                   internalType: "uint256",
@@ -8845,6 +9257,25 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "tbaList",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "uint256",
                   name: "tokenId",
                   type: "uint256",
@@ -8856,6 +9287,25 @@ const contracts = {
                   internalType: "string",
                   name: "",
                   type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "totalBoxBurned",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
                 },
               ],
               stateMutability: "view",
@@ -8900,19 +9350,25 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
-                  name: "tokenId",
-                  type: "uint256",
+                  internalType: "address",
+                  name: "",
+                  type: "address",
                 },
                 {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "userRewardNames",
+              outputs: [
+                {
                   internalType: "string",
-                  name: "newTokenURI",
+                  name: "",
                   type: "string",
                 },
               ],
-              name: "updateTokenURI",
-              outputs: [],
-              stateMutability: "nonpayable",
+              stateMutability: "view",
               type: "function",
             },
           ],
@@ -11334,7 +11790,7 @@ const contracts = {
           ],
         },
         FoodScramble: {
-          address: "0xE06BD56CbF0B404FE661f5522f08B608917f88Ed",
+          address: "0x8110c4B5b570bccd1daA8d096c017eC994BA9512",
           abi: [
             {
               inputs: [
@@ -11433,7 +11889,7 @@ const contracts = {
                 {
                   indexed: false,
                   internalType: "uint256",
-                  name: "specialBoxCount",
+                  name: "hamburgerCount",
                   type: "uint256",
                 },
               ],
@@ -11857,7 +12313,7 @@ const contracts = {
             },
             {
               inputs: [],
-              name: "mintSpecialBox",
+              name: "mintSpecialBoxNFT",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -11976,6 +12432,24 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tba",
+                  type: "address",
+                },
+              ],
+              name: "setTBA",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -13181,16 +13655,10 @@ const contracts = {
           ],
         },
         SpecialBox: {
-          address: "0x3BC1C18f88CA9A5C46b236B4768215855c995EF0",
+          address: "0x0783cd6815dAbeD27C0Ab86bbd53E3A14d54B9eC",
           abi: [
             {
-              inputs: [
-                {
-                  internalType: "address",
-                  name: "foodNFTAddress",
-                  type: "address",
-                },
-              ],
+              inputs: [],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -13301,6 +13769,50 @@ const contracts = {
                 {
                   indexed: true,
                   internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "uint256",
+                  name: "tokenId",
+                  type: "uint256",
+                },
+              ],
+              name: "SpecialBoxMinted",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  indexed: true,
+                  internalType: "address",
+                  name: "target",
+                  type: "address",
+                },
+                {
+                  indexed: false,
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+              ],
+              name: "SpecialBoxRedeemed",
+              type: "event",
+            },
+            {
+              anonymous: false,
+              inputs: [
+                {
+                  indexed: true,
+                  internalType: "address",
                   name: "from",
                   type: "address",
                 },
@@ -13360,38 +13872,6 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "address",
-                  name: "user",
-                  type: "address",
-                },
-              ],
-              name: "canMintSpecialBox",
-              outputs: [
-                {
-                  internalType: "bool",
-                  name: "",
-                  type: "bool",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "foodNFTContract",
-              outputs: [
-                {
-                  internalType: "contract FoodNFT",
-                  name: "",
-                  type: "address",
-                },
-              ],
-              stateMutability: "view",
-              type: "function",
-            },
-            {
-              inputs: [
-                {
                   internalType: "uint256",
                   name: "tokenId",
                   type: "uint256",
@@ -13416,12 +13896,55 @@ const contracts = {
                   type: "address",
                 },
               ],
-              name: "getSpecialBoxCount",
+              name: "getUserSpecialBoxBalance",
               outputs: [
                 {
                   internalType: "uint256",
                   name: "",
                   type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+              ],
+              name: "getUserTBA",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "hasRedeemedReward",
+              outputs: [
+                {
+                  internalType: "bool",
+                  name: "",
+                  type: "bool",
                 },
               ],
               stateMutability: "view",
@@ -13452,9 +13975,26 @@ const contracts = {
               type: "function",
             },
             {
-              inputs: [],
-              name: "mint",
-              outputs: [],
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "string",
+                  name: "tokenURI",
+                  type: "string",
+                },
+              ],
+              name: "mintSpecialBox",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "function",
             },
@@ -13501,6 +14041,29 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "target",
+                  type: "address",
+                },
+                {
+                  internalType: "bytes",
+                  name: "callData",
+                  type: "bytes",
+                },
+                {
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+              ],
+              name: "redeemSpecialBoxForReward",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -13582,12 +14145,67 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "string",
+                  name: "rewardName",
+                  type: "string",
+                },
+                {
+                  internalType: "uint256",
+                  name: "boxRequired",
+                  type: "uint256",
+                },
+              ],
+              name: "setSpecialBoxRewardCost",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "user",
+                  type: "address",
+                },
+                {
+                  internalType: "address",
+                  name: "tba",
+                  type: "address",
+                },
+              ],
+              name: "setTBAForUser",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "address",
                   name: "",
                   type: "address",
                 },
               ],
-              name: "specialBoxCount",
+              name: "specialBoxBalances",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              name: "specialBoxRewardCost",
               outputs: [
                 {
                   internalType: "uint256",
@@ -13633,6 +14251,25 @@ const contracts = {
             {
               inputs: [
                 {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "tbaList",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
                   internalType: "uint256",
                   name: "tokenId",
                   type: "uint256",
@@ -13644,6 +14281,25 @@ const contracts = {
                   internalType: "string",
                   name: "",
                   type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              name: "totalBoxBurned",
+              outputs: [
+                {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
                 },
               ],
               stateMutability: "view",
@@ -13688,19 +14344,25 @@ const contracts = {
             {
               inputs: [
                 {
-                  internalType: "uint256",
-                  name: "tokenId",
-                  type: "uint256",
+                  internalType: "address",
+                  name: "",
+                  type: "address",
                 },
                 {
+                  internalType: "uint256",
+                  name: "",
+                  type: "uint256",
+                },
+              ],
+              name: "userRewardNames",
+              outputs: [
+                {
                   internalType: "string",
-                  name: "newTokenURI",
+                  name: "",
                   type: "string",
                 },
               ],
-              name: "updateTokenURI",
-              outputs: [],
-              stateMutability: "nonpayable",
+              stateMutability: "view",
               type: "function",
             },
           ],
