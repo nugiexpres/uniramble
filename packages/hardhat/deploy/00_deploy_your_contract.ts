@@ -105,7 +105,9 @@ const deployYourContract: DeployFunction = async function (hre: HardhatRuntimeEn
   // Deploy the SpecialBox contract with SpecialPass and FoodNFT addresses as constructor arguments
   await deploy("SpecialBox", {
     from: deployer,
-    args: [],
+    args: [
+      "https://551506431204868b983b6e282e4bdf55.ipfs.4everland.link/ipfs/bafybeigl3nwkgeeo6ycwwosvd4ti5imalkqsnx7vtcluxcymmucfoufhvy",
+    ],
     log: true,
   });
   const SpecialBoxContract = await hre.deployments.get("SpecialBox");

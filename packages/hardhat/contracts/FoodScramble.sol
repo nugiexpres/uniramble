@@ -256,15 +256,15 @@ contract FoodScramble {
         require(tba != address(0), "TBA not set");
 
         uint256 hamburgerCount = getMyFoods(msg.sender).length;
-        require(hamburgerCount >= 10, "You need at least 10 hamburger NFTs to mint a Special Box");
+        require(hamburgerCount >= 10, "Need at least 10 hamburger to mint a Special Box");
 
         uint256 currentRangeStart = (hamburgerCount / 10) * 10;
         require(
             lastMintedSpecialBox[msg.sender] < currentRangeStart,
-            "You can only mint one Special Box per range of 10 hamburgers"
+            "Only can mint one Special Box per range 10 hamburgers"
         );
 
-        specialBox.mintSpecialBox(tba, "https://551506431204868b983b6e282e4bdf55.ipfs.4everland.link/ipfs/bafybeigl3nwkgeeo6ycwwosvd4ti5imalkqsnx7vtcluxcymmucfoufhvy");
+        specialBox.mintSpecialBox(tba);
 
         lastMintedSpecialBox[msg.sender] = currentRangeStart;
 

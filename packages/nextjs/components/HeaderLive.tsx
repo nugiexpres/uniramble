@@ -12,7 +12,7 @@ export const HeaderLive = () => {
 
   return (
     <header className="bg-purple-700 py-4 shadow-lg relative z-40">
-      <div className="container mx-auto px-5 flex justify-between items-center relative">
+      <div className="w-full px-0 flex justify-between items-center relative">
         {/* Logo + Title */}
         <div className="flex items-center space-x-3">
           <button onClick={() => setIsOpen(!isOpen)} className="flex items-center space-x-2 focus:outline-none">
@@ -22,7 +22,7 @@ export const HeaderLive = () => {
         </div>
 
         {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center space-x-4">
+        <nav className="hidden md:flex items-center px-2 space-x-4">
           <Link href="/" className="text-white hover:text-yellow-300 px-4 py-2 rounded-lg bg-black hover:bg-purple-500">
             Home
           </Link>
@@ -48,13 +48,13 @@ export const HeaderLive = () => {
         </nav>
 
         {/* Mobile Wallet Button (Always Visible) */}
-        <div className="md:hidden flex items-center z-50">
+        <div className="md:hidden flex items-center px-1 z-50">
           <ConnectButton />
         </div>
 
         {/* Mobile Dropdown Menu */}
         {isOpen && (
-          <div className="absolute top-full left-0 w-full bg-purple-800 text-white flex flex-col items-start gap-2 px-5 py-4 rounded-b-xl shadow-lg md:hidden animate-fade-down z-50">
+          <div className="absolute top-full left-0 w-full bg-purple-800 text-white flex flex-col items-start gap-2 px-0 py-4 rounded-b-xl shadow-lg md:hidden animate-fade-down z-50">
             <Link href="/" onClick={() => setIsOpen(false)} className="w-full block hover:text-yellow-300">
               Home
             </Link>

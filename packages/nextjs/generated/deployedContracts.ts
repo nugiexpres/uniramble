@@ -6182,6 +6182,37 @@ const contracts = {
             },
             {
               inputs: [],
+              name: "allowedCaller",
+              outputs: [
+                {
+                  internalType: "address",
+                  name: "",
+                  type: "address",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "to",
+                  type: "address",
+                },
+                {
+                  internalType: "uint256",
+                  name: "amount",
+                  type: "uint256",
+                },
+              ],
+              name: "faucet",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
               name: "fundFaucet",
               outputs: [],
               stateMutability: "payable",
@@ -6198,6 +6229,19 @@ const contracts = {
                 },
               ],
               stateMutability: "view",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "address",
+                  name: "_caller",
+                  type: "address",
+                },
+              ],
+              name: "setAllowedCaller",
+              outputs: [],
+              stateMutability: "nonpayable",
               type: "function",
             },
             {
@@ -6796,7 +6840,7 @@ const contracts = {
           ],
         },
         FoodScramble: {
-          address: "0x68B1D87F95878fE05B998F19b66F4baba5De1aed",
+          address: "0x9A676e781A523b5d0C0e43731313A708CB607508",
           abi: [
             {
               inputs: [
@@ -7052,13 +7096,6 @@ const contracts = {
             {
               inputs: [],
               name: "faucetMon",
-              outputs: [],
-              stateMutability: "nonpayable",
-              type: "function",
-            },
-            {
-              inputs: [],
-              name: "faucetMonContract",
               outputs: [
                 {
                   internalType: "contract FaucetMon",
@@ -7601,6 +7638,13 @@ const contracts = {
             {
               inputs: [],
               name: "travelRail",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [],
+              name: "useFaucetMon",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
@@ -8664,7 +8708,13 @@ const contracts = {
           address: "0x8A791620dd6260079BF849Dc5567aDC3F2FdC318",
           abi: [
             {
-              inputs: [],
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "_boxURI",
+                  type: "string",
+                },
+              ],
               stateMutability: "nonpayable",
               type: "constructor",
             },
@@ -8876,6 +8926,19 @@ const contracts = {
               type: "function",
             },
             {
+              inputs: [],
+              name: "boxURI",
+              outputs: [
+                {
+                  internalType: "string",
+                  name: "",
+                  type: "string",
+                },
+              ],
+              stateMutability: "view",
+              type: "function",
+            },
+            {
               inputs: [
                 {
                   internalType: "uint256",
@@ -8986,11 +9049,6 @@ const contracts = {
                   internalType: "address",
                   name: "to",
                   type: "address",
-                },
-                {
-                  internalType: "string",
-                  name: "tokenURI",
-                  type: "string",
                 },
               ],
               name: "mintSpecialBox",
@@ -9144,6 +9202,19 @@ const contracts = {
                 },
               ],
               name: "setApprovalForAll",
+              outputs: [],
+              stateMutability: "nonpayable",
+              type: "function",
+            },
+            {
+              inputs: [
+                {
+                  internalType: "string",
+                  name: "_boxURI",
+                  type: "string",
+                },
+              ],
+              name: "setBoxURI",
               outputs: [],
               stateMutability: "nonpayable",
               type: "function",
